@@ -11,4 +11,9 @@ class StatisticsController extends Controller
     public function __construct(Statistics $statistics){
         $this->statistics = $statistics;
     }
+
+    public function index(){
+        $statistics = $this->statistics->showAllStatistics();
+        return $statistics;
+    }
 }
