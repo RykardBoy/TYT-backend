@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Administrators;
 use App\Services\AdministratorService;
 
 class AdministratorController extends Controller
