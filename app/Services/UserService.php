@@ -17,6 +17,12 @@ class UserService{
         $users = Users::findOrFail($id);
         return response()->json($users);
     }
+
+    public function deleteUser(string $id){
+        $delUser = Users::findOrFail($id);
+        $delUser->delete();
+        return response()->json(['message' => 'Utilisateur supprimé avec succès']);
+    }
 }
 
 

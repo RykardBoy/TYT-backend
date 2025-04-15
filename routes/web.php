@@ -14,6 +14,8 @@ Route::get('/', function () {
 // Routage users
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
+Route::delete('/usersDel/{id}', [UserController::class], 'destroy');
+
 
 // Routage country
 Route::get('/countries', [CountryController::class, 'index']);

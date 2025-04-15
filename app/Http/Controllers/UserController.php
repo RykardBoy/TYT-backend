@@ -24,4 +24,9 @@ class UserController extends Controller
         $country = $this->userService->showOneUser($id);
         return $country;
     }
+
+    public function destroy($id){
+        $delUser = $this->userService->deleteUser($id);
+        return $delUser;
+    }
 }
