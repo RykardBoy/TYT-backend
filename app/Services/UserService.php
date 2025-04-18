@@ -18,10 +18,11 @@ class UserService{
         return response()->json($users);
     }
 
+    // Delete a user
     public function deleteUser(string $id){
-        $delUser = Users::findOrFail($id);
-        $delUser->delete();
-        return response()->json(['message' => 'Utilisateur supprimé avec succès']);
+        $user = Users::findOrFail($id);
+
+        return $user->delete();
     }
 }
 

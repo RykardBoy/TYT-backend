@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Statistics;
+
+use App\Services\StatisticsService;
 
 class StatisticsController extends Controller
 {
     protected $statistics;
 
-    public function __construct(Statistics $statistics){
+    public function __construct(StatisticsService $statistics){
         $this->statistics = $statistics;
     }
 

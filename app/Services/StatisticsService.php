@@ -4,14 +4,14 @@ namespace App\Services;
 
 use App\Models\Statistics;
 
-class CountryService{
-    // Show all countries
+class StatisticsService{
+    // Show all statistics
     public function showAllStatistics(){
         $statistics = Statistics::all();
         return response()->json($statistics);
     }
 
-    // Show a specific country
+    // Show a specific statistic
     public function showOneStatistics(string $id){
         $statistics = Statistics::findOrFail($id);
         return response()->json($statistics);

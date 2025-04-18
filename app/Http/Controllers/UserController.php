@@ -26,7 +26,11 @@ class UserController extends Controller
     }
 
     public function destroy($id){
-        $delUser = $this->userService->deleteUser($id);
-        return $delUser;
+        try {
+            $this->userService->deleteUser($id);
+            return response()->json(['message' => 'Utilisateur supprimé avec succès.'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Utilisateur introuvable ou erreur lors de la suppression.'], 404);
+        }
     }
 }
