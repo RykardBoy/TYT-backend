@@ -13,6 +13,7 @@ use App\Http\Controllers\AdministratorController;
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
+Route::update('/users/{id}', [UserController::class, 'update']);
 
 // Routage country
 Route::get('/countries', [CountryController::class, 'index']);

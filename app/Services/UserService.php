@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Users;
+use Illuminate\Http\Request;
 
 class UserService{
 
@@ -24,6 +25,19 @@ class UserService{
 
         return $user->delete();
     }
+
+    // Modify a user
+    public function updateUser(Users $user, array $data): Users
+    {
+        if (isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        $user->update($data);
+
+        return $user;
+    }
+    // Create a user
 }
 
 
