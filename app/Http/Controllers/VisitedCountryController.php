@@ -22,4 +22,21 @@ class VisitedCountryController extends Controller
         $visitedCountry = $this->visitedCountry->showOneVisitedCountry($id);
         return $visitedCountry;
     }
+
+    public function store(Request $request, array $data){
+        $validated = $request->validate([
+            'id_user' => 'require',
+            'id_country' => 'require',
+            'description' => 'sometimes|string|max:255',
+            'photos' => 'sometimes',
+            'nb_stars' => 'require',
+        ]);
+
+        $souvenir = $this->visitedCountry->addSouvenir($data);
+
+        return response()->json([
+            'message' => 'Souvenirs added successfuly',
+            'souvenirs' => $souvenir
+        ]);
+    }
 }

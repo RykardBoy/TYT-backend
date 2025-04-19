@@ -6,12 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class VisitedCountry extends Model
 {
-    // Si ton nom de table est différent, ajoute la ligne suivante
-    protected $table = 'visited_country';  // Assure-toi que c'est bien 'users'
+    protected $table = 'visited_country'; 
 
-    // Si tu n'as pas de clé primaire standard (id), définis la clé primaire
-    protected $primaryKey = 'id_user_country';  // Assure-toi que la clé primaire est bien 'id'
+    protected $primaryKey = 'id_user_country'; 
 
-    // Si tu n'as pas de champs 'created_at' et 'updated_at', désactive-les
-    public $timestamps = false; // Si tu ne les utilises pas}
+    
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id_user', // sera remplie avec l'id de la personne qui l'ajoute
+        'id_country', // sera remplie avec la sélection de la liste déroulante
+        'description',
+        'photos',
+        'nb_stars',
+    ];
 }

@@ -16,6 +16,8 @@ class AdministratorService{
         $admin = Administrators::findOrFail($id);
         return response()->json($admin);
     }
+
+    
 }
 
 

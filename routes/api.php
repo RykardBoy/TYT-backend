@@ -8,6 +8,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\VisitedCountryController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\AdministratorController;
+use App\Services\VisitedCountryService;
 
 // Routage des users
 Route::get('/users', [UserController::class, 'index']);
@@ -25,6 +26,8 @@ Route::delete('deleteCountry/{id}', [CountryController::class, 'destroy']);
 
 // Routage visited country
 Route::get('/visitedCountry', [VisitedCountryController::class, 'index']);
+Route::get('/visitedCountry/{id}', [VisitedCountryController::class, 'show']);
+Route::post('/addSouvenir', [VisitedCountryController::class, 'store']);
 
 // Routage statistics
 Route::get('/statistics', [StatisticsController::class, 'index']);

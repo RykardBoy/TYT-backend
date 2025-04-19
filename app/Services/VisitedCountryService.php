@@ -12,10 +12,17 @@ class VisitedCountryService{
         return response()->json($countries);
     }
 
-    // Show a specific visited country (COMPLETER POUR VOIR SI ON CHERCHE USER OU PAYS)
+    // Show a specific visited country
     public function showOneVisitedCountry(string $id){
         $country = VisitedCountry::findOrFail($id);
         return response()->json($country);
     }
+
+    public function addSouvenir(array $data){
+        return VisitedCountry::create($data);
+
+    }
+
+
 }
 ?>
