@@ -18,6 +18,7 @@ class VisitedCountryService{
         return response()->json($country);
     }
 
+    // Add a souvenir
     public function addSouvenir(array $data){
         return VisitedCountry::create($data);
 

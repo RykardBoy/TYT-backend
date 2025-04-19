@@ -23,6 +23,7 @@ class VisitedCountryController extends Controller
         return $visitedCountry;
     }
 
+    // REVOIR ICI ( FAIRE AUTH )
     public function store(Request $request, array $data){
         $validated = $request->validate([
             'id_user' => 'require',
