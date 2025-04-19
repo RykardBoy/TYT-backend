@@ -29,6 +29,12 @@ class CountryService{
         $country->update($data);
         return $country;
     }
+
+    // Delete a country
+    public function deleteCountry(string $id_country){
+        $country = Countries::findOrFail($id_country);
+        return $country->delete();
+    }
 }
 
 

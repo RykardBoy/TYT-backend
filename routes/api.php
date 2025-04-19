@@ -21,6 +21,7 @@ Route::get('/countries', [CountryController::class, 'index']);
 Route::get('/countries/{id}', [CountryController::class, 'show']);
 Route::post('/addCountry', [CountryController::class, 'store']);
 Route::put('/updateCountry/{id}', [CountryController::class, 'update']);
+Route::delete('deleteCountry/{id}', [CountryController::class, 'destroy']);
 
 // Routage visited country
 Route::get('/visitedCountry', [VisitedCountryController::class, 'index']);

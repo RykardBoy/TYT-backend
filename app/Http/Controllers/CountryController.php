@@ -62,4 +62,15 @@ class CountryController extends Controller
             'country' => $updatedCountry
         ]);
     }
+
+    public function destroy(string $id_country){
+        
+        $deletedCountry = $this->countryService->deleteCountry($id_country);
+        
+        return response()->json([
+            'message' => 'country successfuly removed',
+            'country' => $deletedCountry
+        ]);
+
+    }
 }
