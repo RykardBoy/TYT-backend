@@ -13,7 +13,8 @@ use App\Http\Controllers\AdministratorController;
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
-Route::update('/users/{id}', [UserController::class, 'update']);
+Route::put('/updateUser/{id}', [UserController::class, 'update']);
+Route::post('/addUser', [UserController::class, 'store']);
 
 // Routage country
 Route::get('/countries', [CountryController::class, 'index']);

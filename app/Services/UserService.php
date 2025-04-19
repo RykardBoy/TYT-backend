@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserService{
 
@@ -27,17 +28,22 @@ class UserService{
     }
 
     // Modify a user
-    public function updateUser(Users $user, array $data): Users
+    public function updateUser(string $id_user, array $data): Users
     {
-        if (isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
-        }
-
+        
+        $user = Users::findOrFail($id_user);
         $user->update($data);
-
+    
         return $user;
     }
+    
     // Create a user
+    public function createUser(array $data){
+
+        return Users::create($data);
+
+
+    }
 }
 
 

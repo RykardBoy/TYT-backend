@@ -15,4 +15,14 @@ class Users extends Model
 
     // Si tu n'as pas de champs 'created_at' et 'updated_at', désactive-les
     public $timestamps = false; // Si tu ne les utilises pas
+
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'email',
+        'username',
+        'password',
+        'country'
+    ];
+    
 }
