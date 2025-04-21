@@ -34,5 +34,10 @@ Route::get('/statistics', [StatisticsController::class, 'index']);
 Route::post('/addStatistics', [StatisticsController::class, 'store']);
 Route::delete('/deleteStatistics/{id}',[StatisticsController::class, 'destroy']);
 Route::put('/updateStatistics/{id}', [StatisticsController::class, 'update']);
+
 // Routage Administrators
 Route::get('/administrators', [AdministratorController::class, 'index']);
+Route::get('/administrators/{id}', [AdministratorController::class, 'show']);
+Route::post('/addAdministrators', [AdministratorController::class, 'store']);
+Route::delete('/deleteAdministrators/{id}', [AdministratorController::class, 'destroy']);
+Route::put('/updateAdministrators', [AdministratorController::class, 'update']);
