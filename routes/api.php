@@ -11,7 +11,7 @@ use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdminController; // used for permission and roles
 
 
-//Route::middleware('auth:sanctum')->group(function(){
+Route::middleware('auth:sanctum')->group(function(){
     // Routage des users
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{id}', [UserController::class, 'show']);
@@ -43,10 +43,10 @@ use App\Http\Controllers\AdminController; // used for permission and roles
     Route::post('/addAdministrators', [AdministratorController::class, 'store']);
     Route::delete('/deleteAdministrators/{id}', [AdministratorController::class, 'destroy']);
 
+    // Routage admin et permission (A CHANGER LORSQUE L'ASSIGNEMENT EST OK)
+    Route::get('/admin/init', [AdminController::class, 'createRolesAndPermissions']);
+    Route::post('admin/assignRole/{id}', [AdminController::class, 'assignRole']);
 
-Route::get('/admin/init', [AdminController::class, 'createRolesAndPermissions']);
-Route::post('admin/assignRole/{id}', [AdminController::class, 'assignRole']);
-
-//});
+});
 
 
