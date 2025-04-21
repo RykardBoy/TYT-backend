@@ -14,6 +14,9 @@ use App\Http\Controllers\AuthController; // used for login and receive a token
 // Routage pour le login
 Route::post('/login', [AuthController::class, 'login']);
 
+// Routage pour le logout (Dans middleware parce que seul un user logé peut se déco)
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+
 Route::middleware('auth:sanctum')->group(function(){
 
     // Routage des users
