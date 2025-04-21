@@ -40,4 +40,3 @@ Route::get('/administrators', [AdministratorController::class, 'index']);
 Route::get('/administrators/{id}', [AdministratorController::class, 'show']);
 Route::post('/addAdministrators', [AdministratorController::class, 'store']);
 Route::delete('/deleteAdministrators/{id}', [AdministratorController::class, 'destroy']);
-Route::put('/updateAdministrators', [AdministratorController::class, 'update']);
