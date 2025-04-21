@@ -27,10 +27,12 @@ Route::delete('deleteCountry/{id}', [CountryController::class, 'destroy']);
 // Routage visited country
 Route::get('/visitedCountry', [VisitedCountryController::class, 'index']);
 Route::get('/visitedCountry/{id}', [VisitedCountryController::class, 'show']);
-Route::post('/addSouvenir', [VisitedCountryController::class, 'store']);
+// Route::post('/addSouvenir', [VisitedCountryController::class, 'store']); --> REVOIR LORSQUE TOUTES LES FONCTIONS SANS AUTH FINI.
 
 // Routage statistics
 Route::get('/statistics', [StatisticsController::class, 'index']);
-
+Route::post('/addStatistics', [StatisticsController::class, 'store']);
+Route::delete('/deleteStatistics/{id}',[StatisticsController::class, 'destroy']);
+Route::put('/updateStatistics/{id}', [StatisticsController::class, 'update']);
 // Routage Administrators
 Route::get('/administrators', [AdministratorController::class, 'index']);

@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Statistics extends Model
 {
-    // Si ton nom de table est différent, ajoute la ligne suivante
-    protected $table = 'statistics';  // Assure-toi que c'est bien 'users'
+    protected $table = 'statistics';  
 
-    // Si tu n'as pas de clé primaire standard (id), définis la clé primaire
-    protected $primaryKey = 'id_statistics';  // Assure-toi que la clé primaire est bien 'id'
+    protected $primaryKey = 'id_statistics'; 
 
-    // Si tu n'as pas de champs 'created_at' et 'updated_at', désactive-les
-    public $timestamps = false; // Si tu ne les utilises pas}
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id_country',
+        'number_users',
+        'total_days'
+    ];
 }

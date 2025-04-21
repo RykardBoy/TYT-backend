@@ -15,8 +15,9 @@ return new class extends Migration
             $table->integer('id_user_country', true);
             $table->integer('id_user')->index('fk_user_visit_user');
             $table->integer('id_country')->index('fk_user_visit_country');
-            $table->binary('photos');
             $table->string('description', 150)->nullable();
+            $table->binary('photos')->nullable();
+            $table->integer('nb_stars');
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('nb_days');
