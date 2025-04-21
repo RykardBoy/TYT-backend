@@ -9,9 +9,13 @@ use App\Http\Controllers\VisitedCountryController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdminController; // used for permission and roles
+use App\Http\Controllers\AuthController; // used for login and receive a token
 
+// Routage pour le login
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function(){
+
     // Routage des users
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{id}', [UserController::class, 'show']);
@@ -45,8 +49,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
     // Routage admin et permission (A CHANGER LORSQUE L'ASSIGNEMENT EST OK)
     Route::get('/admin/init', [AdminController::class, 'createRolesAndPermissions']);
-    Route::post('admin/assignRole/{id}', [AdminController::class, 'assignRole']);
-
+    Route::post('admin/assignRole/{id}', [AdminController::class, 'assignRole']); 
 });
 
 
