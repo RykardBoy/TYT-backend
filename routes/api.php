@@ -17,40 +17,29 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // Routage pour le logout (Dans middleware parce que seul un user logé peut se déco)
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
-// TEST
+
+// TEST du routage selon permission et role (Voir encore à quel point je décortique)
 Route::group(['middleware' => ['can:add user']], function () {
+    
+    // Routage des users (POUR ADMIN)
     Route::post('/addUser', [UserController::class, 'store']);
-
-});
-
-
-Route::middleware('auth:sanctum')->group(function(){
-
-    // Routage des users
-    Route::get('/users', [UserController::class, 'index']);
-    Route::get('/users/{id}', [UserController::class, 'show']);
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
     Route::put('/updateUser/{id}', [UserController::class, 'update']);
 
-    // Routage country
-    Route::get('/countries', [CountryController::class, 'index']);
-    Route::get('/countries/{id}', [CountryController::class, 'show']);
+    // Routage des countries (POUR ADMIN)
     Route::post('/addCountry', [CountryController::class, 'store']);
     Route::put('/updateCountry/{id}', [CountryController::class, 'update']);
     Route::delete('deleteCountry/{id}', [CountryController::class, 'destroy']);
 
-    // Routage visited country
-    Route::get('/visitedCountry', [VisitedCountryController::class, 'index']);
-    Route::get('/visitedCountry/{id}', [VisitedCountryController::class, 'show']);
+    // Routage des souvenirs (POUR ADMIN)
     // Route::post('/addSouvenir', [VisitedCountryController::class, 'store']); --> REVOIR LORSQUE TOUTES LES FONCTIONS SANS AUTH FINI.
 
-    // Routage statistics
-    Route::get('/statistics', [StatisticsController::class, 'index']);
-    Route::post('/addStatistics', [StatisticsController::class, 'store']);
+
+    // Routages des statistiques (POUR ADMIN)
     Route::delete('/deleteStatistics/{id}',[StatisticsController::class, 'destroy']);
     Route::put('/updateStatistics/{id}', [StatisticsController::class, 'update']);
 
-    // Routage Administrators
+    // Routage des administrators (POUR ADMIN)
     Route::get('/administrators', [AdministratorController::class, 'index']);
     Route::get('/administrators/{id}', [AdministratorController::class, 'show']);
     Route::post('/addAdministrators', [AdministratorController::class, 'store']);
@@ -60,6 +49,29 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/admin/init', [AdminController::class, 'createRolesAndPermissions']);
     Route::post('admin/assignRole/{id}', [AdminController::class, 'assignRole']); 
     Route::post('/admin/assignPermission/{id}', [AdminController::class, 'assignPermission']);
+});
+
+
+Route::middleware('auth:sanctum')->group(function(){
+
+    // Routage des users
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+
+    // Routage country
+    Route::get('/countries', [CountryController::class, 'index']);
+    Route::get('/countries/{id}', [CountryController::class, 'show']);    
+
+    // Routage visited country
+    Route::get('/visitedCountry', [VisitedCountryController::class, 'index']);
+    Route::get('/visitedCountry/{id}', [VisitedCountryController::class, 'show']);
+
+    // Routage statistics
+    Route::get('/statistics', [StatisticsController::class, 'index']);
+    Route::post('/addStatistics', [StatisticsController::class, 'store']);
+    
+
+    
 });
 
 
