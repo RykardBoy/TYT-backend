@@ -10,12 +10,19 @@ use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdminController; // used for permission and roles
 use App\Http\Controllers\AuthController; // used for login and receive a token
+use App\Models\Administrators;
 
 // Routage pour le login
 Route::post('/login', [AuthController::class, 'login']);
 
 // Routage pour le logout (Dans middleware parce que seul un user logé peut se déco)
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+// TEST
+Route::group(['middleware' => ['can:add user']], function () {
+    Route::post('/addUser', [UserController::class, 'store']);
+
+});
+
 
 Route::middleware('auth:sanctum')->group(function(){
 
@@ -24,7 +31,6 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
     Route::put('/updateUser/{id}', [UserController::class, 'update']);
-    Route::post('/addUser', [UserController::class, 'store']);
 
     // Routage country
     Route::get('/countries', [CountryController::class, 'index']);
@@ -53,6 +59,7 @@ Route::middleware('auth:sanctum')->group(function(){
     // Routage admin et permission (A CHANGER LORSQUE L'ASSIGNEMENT EST OK)
     Route::get('/admin/init', [AdminController::class, 'createRolesAndPermissions']);
     Route::post('admin/assignRole/{id}', [AdminController::class, 'assignRole']); 
+    Route::post('/admin/assignPermission/{id}', [AdminController::class, 'assignPermission']);
 });
 
 

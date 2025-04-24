@@ -34,7 +34,6 @@ class AdminController extends Controller
     public function assignRole(Request $request, string $id_user){
         $userAdmin = Users::findOrFail($id_user);
 
-        // Forcer le guard à 'api'
         $roleName = $request->input('roles');
 
         $userAdmin->assignRole(Role::findByName($roleName, 'api'));
@@ -44,4 +43,11 @@ class AdminController extends Controller
     ]);
     }
 
+    public function assignPermission(Request $request, string $id_user){
+        $user = Users::findorfail($id_user); // Trouve un utilisateur
+        $permission = Permission::findByName($request->input('permission'), 'api'); // Trouve la permission
+
+        $user->givePermissionTo($permission);
+
+    }
 }
