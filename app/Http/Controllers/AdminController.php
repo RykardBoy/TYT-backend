@@ -15,10 +15,12 @@ class AdminController extends Controller
     public function createRolesAndPermissions()
     {
         // Crée le rôle admin s’il n’existe pas déjà
-        $roleAdmin = Role::create(['name' => 'admin']);
+        $roleAdmin = Role::create(['name' => 'admin', 'guard_name' => 'api']);
         // Crée les permissions s’elles n’existent pas
-        $permAddUser = Permission::create(['name' => 'add user']);
-        $permDeleteUser = Permission::create(['name' => 'delete user']);
+        $permAddUser = Permission::create(['name' => 'add user', 'guard_name' => 'api']);
+        $permDeleteUser = Permission::create(['name' => 'delete user', 'guard_name' => 'api']);
+
+        $roleAdmin->givePermissionTo([$permAddUser, $permDeleteUser]);
 
 
         // Associe les permissions au rôle admin
@@ -30,8 +32,16 @@ class AdminController extends Controller
     }
 
     public function assignRole(Request $request, string $id_user){
-        $userAdmin = Users::findorfail($id_user); 
-        $userAdmin->syncRoles($request->input('roles'));// "message": "The given role or permission should use guard `` instead of `web`.", <---- FIX THIS
+        $userAdmin = Users::findOrFail($id_user);
+
+        // Forcer le guard à 'api'
+        $roleName = $request->input('roles');
+
+        $userAdmin->assignRole(Role::findByName($roleName, 'api'));
+
+        return response()->json([
+            'message' => "Rôle '$roleName' assigné avec succès à l'utilisateur.",
+    ]);
     }
 
 }

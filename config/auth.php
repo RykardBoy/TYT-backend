@@ -36,14 +36,15 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-        ],
+        'driver' => 'token', // ou 'sanctum' si tu utilises Laravel Sanctum
+        'provider' => 'users',
+    ],
+        
     ],
 
     /*
@@ -66,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', App\Models\Users::class),
         ],
 
         // 'users' => [
