@@ -10,7 +10,8 @@ use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdminController; // used for permission and roles
 use App\Http\Controllers\AuthController; // used for login and receive a token
-use App\Services\VisitedCountryService;
+use App\Http\Controllers\TestController;
+
 
 // Routage pour le login
 Route::post('/login', [AuthController::class, 'login']);
@@ -72,6 +73,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/souvenirs/{id}', [VisitedCountryController::class, 'show']);
     Route::post('/addSouvenir', [VisitedCountryController::class, 'addSouvenir']);
     
+    Route::get('/test', [TestController::class, 'test']);
 });
 
 
