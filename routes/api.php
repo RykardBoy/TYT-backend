@@ -10,7 +10,6 @@ use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdminController; // used for permission and roles
 use App\Http\Controllers\AuthController; // used for login and receive a token
-use App\Models\Administrators;
 
 // Routage pour le login
 Route::post('/login', [AuthController::class, 'login']);
@@ -31,11 +30,7 @@ Route::group(['middleware' => ['can:add user']], function () {
     Route::put('/updateCountry/{id}', [CountryController::class, 'update']);
     Route::delete('deleteCountry/{id}', [CountryController::class, 'destroy']);
 
-    // Routage des souvenirs (POUR ADMIN)
-    // Route::post('/addSouvenir', [VisitedCountryController::class, 'store']); --> REVOIR LORSQUE TOUTES LES FONCTIONS SANS AUTH FINI.
-
-
-    // Routages des statistiques (POUR ADMIN)
+    // Routage des statistiques (POUR ADMIN)
     Route::delete('/deleteStatistics/{id}',[StatisticsController::class, 'destroy']);
     Route::put('/updateStatistics/{id}', [StatisticsController::class, 'update']);
 
@@ -52,6 +47,7 @@ Route::group(['middleware' => ['can:add user']], function () {
 });
 
 
+// Routage pour tous les utilisateurs (normal ou admin)
 Route::middleware('auth:sanctum')->group(function(){
 
     // Routage des users
@@ -70,7 +66,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/statistics', [StatisticsController::class, 'index']);
     Route::post('/addStatistics', [StatisticsController::class, 'store']);
     
-
+    // Routage des souvenirs (POUR ADMIN)
+    Route::post('/addPictures', [VisitedCountryController::class, 'addPictures']);
+    Route::post('/addSouvenir', [VisitedCountryController::class, 'addSouvenir']);
     
 });
 

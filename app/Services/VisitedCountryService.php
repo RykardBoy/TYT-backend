@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\VisitedCountry;
+use Illuminate\Http\Request;
 
 class VisitedCountryService{
 

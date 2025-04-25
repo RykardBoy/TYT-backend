@@ -14,10 +14,10 @@ class VisitedCountry extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id_user', // sera remplie avec l'id de la personne qui l'ajoute
+        'id_user',
         'id_country', // sera remplie avec la sélection de la liste déroulante
         'description',
-        'photos',
+        'image',
         'nb_stars',
     ];
 }
