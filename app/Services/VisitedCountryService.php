@@ -3,28 +3,31 @@
 namespace App\Services;
 
 use App\Models\VisitedCountry;
+use App\Models\Countries;
 use Illuminate\Http\Request;
+use App\Models\Users;
+
 
 class VisitedCountryService{
 
+    
     // Show all visited countries
     public function showAllVisitedCountries(){
-        $countries = VisitedCountry::all();
-        return response()->json($countries);
-    }
 
+        return Users::with('countries')->get();
+    }
+    
     // Show a specific visited country
-    public function showOneVisitedCountry(string $id){
-        $country = VisitedCountry::findOrFail($id);
-        return response()->json($country);
+    public function showOneVisitedCountry($id_user){
+
+        $user = Users::find($id_user);
+        
+        if (!$user) {
+            return [];
+        }
+
+        
+        return $user->countries;
     }
-
-    // Add a souvenir
-    public function addSouvenir(array $data){
-        return VisitedCountry::create($data);
-
-    }
-
-
 }
 ?>

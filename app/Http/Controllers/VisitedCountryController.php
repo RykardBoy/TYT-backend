@@ -27,55 +27,29 @@ class VisitedCountryController extends Controller
         return $visitedCountry;
     }
 
-    // REVOIR ICI ( FAIRE AUTH )
-    public function store(Request $request, array $data){
-        $validated = $request->validate([
-            'id_user' => 'require',
-            'id_country' => 'require',
-            'description' => 'sometimes|string|max:255',
-            'photos' => 'sometimes',
-            'nb_stars' => 'require',
-        ]);
-
-        $souvenir = $this->visitedCountry->addSouvenir($data);
-
-        return response()->json([
-            'message' => 'Souvenirs added successfully',
-            'souvenirs' => $souvenir
-        ]);
-    }
 
     public function addSouvenir (Request $request){
-        // Récupération de l'utilisateur connecté
+        // No check if user authentified because middleware already check it
         $user = Auth::user();
 
-        // Debug facultatif
-        Log::info('Utilisateur connecté : ', ['user' => $user]);
+        Log::info('Utilisateur connecté : ', ['user' => $user]); // for debugging
 
-        // Sécurité : vérification que l'utilisateur est bien authentifié
-        if (!$user) {
-            return response()->json(['message' => 'Non autorisé'], 401);
-        }
-
-        // Validation des champs reçus (id_user est déduit, donc non attendu dans la requête)
         $validated = $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'id_country' => 'required|integer|exists:countries,id_country', // vérifie si le pays existe
+            'id_country' => 'required|integer|exists:countries,id_country',
             'description' => 'required|string|max:1000',
             'nb_stars' => 'required|integer|min:1|max:5',
         ]);
 
-        // Création du dossier si besoin
         $uploadPath = public_path('uploads');
         if (!file_exists($uploadPath)) {
             mkdir($uploadPath, 0755, true);
         }
 
-        // Traitement de l'image
+        // saving image in folder
         $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
         $request->file('image')->move($uploadPath, $imageName);
-
-        // Enregistrement dans la base
+        // INSERT
         $souvenir = VisitedCountry::create([
             'id_user' => $user->id_user,
             'id_country' => $validated['id_country'],
