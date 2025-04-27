@@ -30,9 +30,11 @@ Route::group(['middleware' => ['can:add user']], function () {
     // Routage des countries (POUR ADMIN)
     Route::post('/addCountry', [CountryController::class, 'store']);
     Route::put('/updateCountry/{id}', [CountryController::class, 'update']);
-    Route::delete('deleteCountry/{id}', [CountryController::class, 'destroy']);
+    Route::delete('/deleteCountry/{id}', [CountryController::class, 'destroy']);
+    
 
     // Routage des statistiques (POUR ADMIN)
+    Route::post('/addStatistics', [StatisticsController::class, 'store']);
     Route::delete('/deleteStatistics/{id}',[StatisticsController::class, 'destroy']);
     Route::put('/updateStatistics/{id}', [StatisticsController::class, 'update']);
 
@@ -60,13 +62,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/countries', [CountryController::class, 'index']);
     Route::get('/countries/{id}', [CountryController::class, 'show']);    
 
-    // Routage visited country
-    Route::get('/visitedCountry', [VisitedCountryController::class, 'index']);
-    Route::get('/visitedCountry/{id}', [VisitedCountryController::class, 'show']);
-
     // Routage statistics
     Route::get('/statistics', [StatisticsController::class, 'index']);
-    Route::post('/addStatistics', [StatisticsController::class, 'store']);
     
     // Routage des souvenirs
     Route::get('/souvenirs', [VisitedCountryController::class, 'index']);
@@ -75,5 +72,5 @@ Route::middleware('auth:sanctum')->group(function(){
     
     Route::get('/test', [TestController::class, 'test']);
 });
-
+ 
 
