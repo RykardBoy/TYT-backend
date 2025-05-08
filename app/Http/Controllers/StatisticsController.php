@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Services\StatisticsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\Statistics;
+
 
 class StatisticsController extends Controller
 {
@@ -19,6 +21,33 @@ class StatisticsController extends Controller
         $statistics = $this->statistics->showAllStatistics();
         return $statistics;
     }
+
+    public function showStatistics(Request $request){
+    $countryName = $request->query('country');
+
+    $statisticsQuery = Statistics::with('country');
+
+    if ($countryName) {
+        $statisticsQuery->whereHas('country', function ($query) use ($countryName) {
+            $query->where('name', $countryName);
+        });
+    }
+
+    $statistics = $statisticsQuery->get()->map(function ($stat) {
+        return [
+            'id_statistics' => $stat->id_statistics,
+            'id_country' => $stat->id_country,
+            'name' => $stat->country->name ?? null,
+            'number_users' => $stat->number_users,
+            'total_days' => $stat->total_days,
+        ];
+    });
+
+    return response()->json($statistics);
+}
+
+
+
 
     public function store(Request $request){
 

@@ -11,6 +11,10 @@ class Administrators extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id_user'
+        'id_user',
+        'firstname',
+        'lastname',
+        'email',
+        'password'
     ];
 }

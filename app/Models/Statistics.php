@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Countries;
 
 class Statistics extends Model
 {
@@ -17,4 +18,8 @@ class Statistics extends Model
         'number_users',
         'total_days'
     ];
+
+    public function country(){
+        return $this->belongsTo(Countries::class, 'id_country', 'id_country');
+    }
 }

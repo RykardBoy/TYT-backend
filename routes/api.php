@@ -23,14 +23,12 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 Route::group(['middleware' => ['can:add user']], function () {
     
     // Routage des users (POUR ADMIN)
-    Route::post('/addUser', [UserController::class, 'store']);
-    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    
     Route::put('/updateUser/{id}', [UserController::class, 'update']);
 
     // Routage des countries (POUR ADMIN)
-    Route::post('/addCountry', [CountryController::class, 'store']);
-    Route::put('/updateCountry/{id}', [CountryController::class, 'update']);
-    Route::delete('/deleteCountry/{id}', [CountryController::class, 'destroy']);
+    
+    
     
 
     // Routage des statistiques (POUR ADMIN)
@@ -42,6 +40,7 @@ Route::group(['middleware' => ['can:add user']], function () {
     Route::get('/administrators', [AdministratorController::class, 'index']);
     Route::get('/administrators/{id}', [AdministratorController::class, 'show']);
     Route::post('/addAdministrators', [AdministratorController::class, 'store']);
+    
     Route::delete('/deleteAdministrators/{id}', [AdministratorController::class, 'destroy']);
 
     // Routage admin et permission (A CHANGER LORSQUE L'ASSIGNEMENT EST OK)
@@ -63,7 +62,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/countries/{id}', [CountryController::class, 'show']);    
 
     // Routage statistics
-    Route::get('/statistics', [StatisticsController::class, 'index']);
+    // Route::get('/statistics', [StatisticsController::class, 'index']);
+    Route::get('/statistics', [StatisticsController::class, 'showStatistics']);
+
     
     // Routage des souvenirs
     Route::get('/souvenirs', [VisitedCountryController::class, 'index']);
@@ -71,6 +72,17 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/addSouvenir', [VisitedCountryController::class, 'addSouvenir']);
     
     Route::get('/test', [TestController::class, 'test']);
+
+    // POUR VISUAL STUDIO
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    Route::post('/addUser', [UserController::class, 'store']);
+
+    Route::post('/addCountry', [CountryController::class, 'store']);
+
+    Route::put('/updateCountry/{id}', [CountryController::class, 'update']);
+    Route::delete('/deleteCountry/{id}', [CountryController::class, 'destroy']);
+
+    
 });
  
 
