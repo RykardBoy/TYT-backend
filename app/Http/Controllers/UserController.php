@@ -75,4 +75,12 @@ class UserController extends Controller
             return response()->json(['message' => 'Une erreur est survenue.'], 500);
         }
     }
+
+    public function countUsers(){
+        $userCount = \App\Models\Users::count(); // Compte tous les utilisateurs dans la table "users"
+        
+        return response()->json([
+            'user_count' => $userCount
+        ]);
+    }
 }

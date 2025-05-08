@@ -7,6 +7,7 @@ use App\Services\StatisticsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Statistics;
+use Illuminate\Support\Facades\DB;
 
 
 class StatisticsController extends Controller
@@ -40,11 +41,48 @@ class StatisticsController extends Controller
             'name' => $stat->country->name ?? null,
             'number_users' => $stat->number_users,
             'total_days' => $stat->total_days,
-        ];
-    });
+            ];
+        });
 
-    return response()->json($statistics);
-}
+        return response()->json($statistics);
+    }
+    public function sumDays(){
+        $totalDays = \App\Models\Statistics::sum('total_days'); // Somme de la colonne "days" dans la table "statistics"
+        
+        return response()->json([
+            'total_days' => $totalDays
+        ]);
+    }
+
+
+    public function frequentCountry(){
+        $mostFrequent = DB::table('statistics')
+            ->join('countries', 'statistics.id_country', '=', 'countries.id_country')
+            ->select('countries.name', DB::raw('count(*) as total'))
+            ->groupBy('countries.name')
+            ->orderByDesc('total')
+            ->limit(1)
+            ->first();
+    
+        return response()->json([
+            'country' => $mostFrequent->name,
+            'count' => $mostFrequent->total
+        ]);
+    }
+
+    public function mostFrequentUserCountry(){
+        $mostFrequent = DB::table('users')
+            ->select('country', DB::raw('count(*) as total'))
+            ->groupBy('country')
+            ->orderByDesc('total')
+            ->limit(1)
+            ->first();
+
+        return response()->json([
+            'country' => $mostFrequent->country,
+            'count' => $mostFrequent->total
+        ]);
+    }
 
 
 

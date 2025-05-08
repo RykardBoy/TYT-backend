@@ -27,12 +27,8 @@ Route::group(['middleware' => ['can:add user']], function () {
     Route::put('/updateUser/{id}', [UserController::class, 'update']);
 
     // Routage des countries (POUR ADMIN)
-    
-    
-    
 
     // Routage des statistiques (POUR ADMIN)
-    Route::post('/addStatistics', [StatisticsController::class, 'store']);
     Route::delete('/deleteStatistics/{id}',[StatisticsController::class, 'destroy']);
     Route::put('/updateStatistics/{id}', [StatisticsController::class, 'update']);
 
@@ -52,6 +48,9 @@ Route::group(['middleware' => ['can:add user']], function () {
 
 // Routage pour tous les utilisateurs (normaux ou admin)
 Route::middleware('auth:sanctum')->group(function(){
+
+    Route::post('/addStatistics', [StatisticsController::class, 'store']);
+
 
     // Routage des users
     Route::get('/users', [UserController::class, 'index']);
@@ -76,11 +75,17 @@ Route::middleware('auth:sanctum')->group(function(){
     // POUR VISUAL STUDIO
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
     Route::post('/addUser', [UserController::class, 'store']);
+    Route::get('/countUsers', [UserController::class, 'countUsers']);
+
 
     Route::post('/addCountry', [CountryController::class, 'store']);
 
     Route::put('/updateCountry/{id}', [CountryController::class, 'update']);
     Route::delete('/deleteCountry/{id}', [CountryController::class, 'destroy']);
+
+    Route::get('/sumDays', [StatisticsController::class, 'sumDays']);
+    Route::get('/frequent-country', [StatisticsController::class, 'frequentCountry']);
+    Route::get('/frequentUserCountry', [StatisticsController::class, 'mostFrequentUserCountry']);
 
     
 });
