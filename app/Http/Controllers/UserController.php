@@ -83,4 +83,21 @@ class UserController extends Controller
             'user_count' => $userCount
         ]);
     }
+
+    public function search(Request $request){
+        $filtre = $request->input('filtre'); // ex: 'firstname', 'lastname', etc.
+        $query = $request->input('query'); // le texte recherché
+
+        // Liste blanche pour éviter des injections ou des erreurs
+        $allowedFields = ['firstname', 'lastname', 'username', 'country'];
+
+        if (!in_array($filtre, $allowedFields)) {
+            return response()->json(['error' => 'Invalid search field'], 400);
+        }
+
+        // Requête dynamique
+        $users = Users::where($filtre, 'like', "%{$query}%")->get();
+
+        return response()->json($users);
+    }
 }

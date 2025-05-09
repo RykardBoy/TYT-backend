@@ -77,6 +77,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/addUser', [UserController::class, 'store']);
     Route::get('/countUsers', [UserController::class, 'countUsers']);
 
+    Route::get('searchUsers', [UserController::class, 'search']);
+
 
     Route::post('/addCountry', [CountryController::class, 'store']);
 
