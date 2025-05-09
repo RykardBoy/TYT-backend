@@ -24,7 +24,6 @@ Route::group(['middleware' => ['can:add user']], function () {
     
     // Routage des users (POUR ADMIN)
     
-    Route::put('/updateUser/{id}', [UserController::class, 'update']);
 
     // Routage des countries (POUR ADMIN)
 
@@ -76,6 +75,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
     Route::post('/addUser', [UserController::class, 'store']);
     Route::get('/countUsers', [UserController::class, 'countUsers']);
+    Route::put('/updateUser/{id}', [UserController::class, 'update']);
 
     Route::get('searchUsers', [UserController::class, 'search']);
 

@@ -42,17 +42,17 @@ class UserController extends Controller
             'firstname' => 'sometimes|string|max:255',
             'lastname' => 'sometimes|string|max:255',
             'username' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|unique:users,email,' . $id_user . 'id_user',
+            'email' => 'sometimes|email|unique:users,email,' . $id_user . ',id_user',
             'country' => 'sometimes|string|max:255',
             'password' => 'sometimes|nullable|string|min:6'
         ]);
-
+    
         $updatedUser = $this->userService->updateUser($id_user, $validated);
         return response()->json([
             'message' => 'Utilisateur mis à jour avec succès.',
             'user' => $updatedUser
         ]);
-    }
+    }   
 
     public function store(Request $request){
         $validated = $request->validate([
@@ -86,7 +86,7 @@ class UserController extends Controller
 
     public function search(Request $request){
         $filtre = $request->input('filtre'); // ex: 'firstname', 'lastname', etc.
-        $query = $request->input('query'); // le texte recherché
+        $recherche = $request->input('recherche'); // le texte recherché
 
         // Liste blanche pour éviter des injections ou des erreurs
         $allowedFields = ['firstname', 'lastname', 'username', 'country', 'email'];
@@ -96,7 +96,7 @@ class UserController extends Controller
         }
 
         // Requête dynamique
-        $users = Users::where($filtre, 'like', "%{$query}%")->get();
+        $users = Users::where($filtre, 'like', "%{$recherche}%")->get();
 
         return response()->json($users);
     }
