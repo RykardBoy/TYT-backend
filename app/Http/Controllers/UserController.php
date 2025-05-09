@@ -89,7 +89,7 @@ class UserController extends Controller
         $query = $request->input('query'); // le texte recherché
 
         // Liste blanche pour éviter des injections ou des erreurs
-        $allowedFields = ['firstname', 'lastname', 'username', 'country'];
+        $allowedFields = ['firstname', 'lastname', 'username', 'country', 'email'];
 
         if (!in_array($filtre, $allowedFields)) {
             return response()->json(['error' => 'Invalid search field'], 400);
