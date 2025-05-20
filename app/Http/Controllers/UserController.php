@@ -76,6 +76,28 @@ class UserController extends Controller
         }
     }
 
+    public function registerUser(Request $request){
+        $validated = $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'username' => 'required|string|unique:users,username',
+            'password' => 'required|string|min:6',
+            'country' => 'nullable|string',
+        ]);
+
+        try {
+            $user = $this->userService->createUser($validated);
+            return response()->json([
+                'message' => 'Utilisateur créé avec succès.',
+                'user' => $user
+            ], 201);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la création de l\'utilisateur : ', ['exception' => $e->getMessage()]);
+            return response()->json(['message' => 'Une erreur est survenue.'], 500);
+        }
+    }
+
     public function countUsers(){
         $userCount = \App\Models\Users::count(); // Compte tous les utilisateurs dans la table "users"
         
