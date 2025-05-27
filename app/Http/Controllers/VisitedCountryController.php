@@ -27,6 +27,14 @@ class VisitedCountryController extends Controller
         return $visitedCountry;
     }
 
+    public function getImages(){
+    $user = Auth::user();
+
+    $souvenirs = VisitedCountry::where('id_user', $user->id_user)->get();
+
+    return response()->json($souvenirs);
+}
+
 
     public function addSouvenir (Request $request){
         // No check if user authentified because middleware already check it
