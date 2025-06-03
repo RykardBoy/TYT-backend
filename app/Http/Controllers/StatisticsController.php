@@ -84,7 +84,29 @@ class StatisticsController extends Controller
         ]);
     }
 
+    public function favoriteCountryByUser($id_user)
+    {
+        $mostVisitedCountry = DB::table('visited_country')
+            ->join('countries', 'visited_country.id_country', '=', 'countries.id_country')
+            ->select('countries.name', DB::raw('count(*) as visit_count'))
+            ->where('visited_country.id_user', $id_user)
+            ->groupBy('countries.name')
+            ->orderByDesc('visit_count')
+            ->limit(1)
+            ->first();
 
+        if (!$mostVisitedCountry) {
+            return response()->json([
+                'message' => 'No visits found for this user'
+            ], 404);
+        }
+
+        return response()->json([
+            'id_user' => $id_user,
+            'favorite_country' => $mostVisitedCountry->name,
+            'visits' => $mostVisitedCountry->visit_count
+        ]);
+    }
 
 
     public function store(Request $request){

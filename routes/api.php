@@ -90,7 +90,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/sumDays', [StatisticsController::class, 'sumDays']);
     Route::get('/frequent-country', [StatisticsController::class, 'frequentCountry']);
     Route::get('/frequentUserCountry', [StatisticsController::class, 'mostFrequentUserCountry']);
-
+    Route::get('/favorite-country/{id}', [StatisticsController::class, 'favoriteCountryByUser']);
     
 });
  
