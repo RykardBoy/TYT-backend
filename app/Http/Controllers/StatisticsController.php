@@ -135,6 +135,18 @@ class StatisticsController extends Controller
         ]);
     }
 
+    public function countVisitedCountries($id_user){
+        $visitedCountriesCount = DB::table('visited_country')
+            ->where('id_user', $id_user)
+            ->distinct('id_country')
+            ->count('id_country');
+
+        return response()->json([
+            'id_user' => $id_user,
+            'countries_visited' => $visitedCountriesCount
+        ]);
+    }
+
 
     public function store(Request $request){
 

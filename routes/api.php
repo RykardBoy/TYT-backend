@@ -92,6 +92,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/favorite-country/{id}', [StatisticsController::class, 'favoriteCountryByUser']);
     Route::get('/countryKmTravelled/{id}', [StatisticsController::class, 'countriesKmTravelled']);
     Route::get('/countUserPhotos/{id}', [StatisticsController::class, 'countUserPhotos']);
+    Route::get('/countVisitedCountries/{id}', [StatisticsController::class, 'countVisitedCountries']);
+
 
     
 });
