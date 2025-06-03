@@ -73,7 +73,6 @@ Route::middleware('auth:sanctum')->group(function(){
     
     Route::get('/test', [TestController::class, 'test']);
 
-    // POUR VISUAL STUDIO
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
     Route::post('/addUser', [UserController::class, 'store']);
     Route::get('/countUsers', [UserController::class, 'countUsers']);
@@ -91,6 +90,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/frequent-country', [StatisticsController::class, 'frequentCountry']);
     Route::get('/frequentUserCountry', [StatisticsController::class, 'mostFrequentUserCountry']);
     Route::get('/favorite-country/{id}', [StatisticsController::class, 'favoriteCountryByUser']);
+    Route::get('/countryKmTravelled/{id}', [StatisticsController::class, 'countriesKmTravelled']);
+    Route::get('/countUserPhotos/{id}', [StatisticsController::class, 'countUserPhotos']);
+
     
 });
  

@@ -108,6 +108,33 @@ class StatisticsController extends Controller
         ]);
     }
 
+    public function countriesKmTravelled($id_user)
+    {
+        $kmTravelled = DB::table('visited_country')
+                            ->join('countries', 'visited_country.id_country', '=', 'countries.id_country')
+                            ->where('visited_country.id_user', $id_user)
+                            ->sum('countries.km');
+
+
+        return response()->json([
+            'id_user' => $id_user,
+            'total_km' => $kmTravelled
+        ]);
+
+    }
+
+    public function countUserPhotos($id_user){
+        $photoCount = DB::table('visited_country')
+            ->where('id_user', $id_user)
+            ->whereNotNull('image') // S'assure que l'entrée a une image
+            ->count();
+
+        return response()->json([
+            'id_user' => $id_user,
+            'total_photos' => $photoCount
+        ]);
+    }
+
 
     public function store(Request $request){
 
