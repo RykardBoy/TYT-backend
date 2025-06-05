@@ -71,4 +71,33 @@ class VisitedCountryController extends Controller
             'data' => $souvenir
         ], 201);
     }
+
+    public function deleteSouvenir(Request $request)
+{
+    $user = Auth::user();
+
+    $validated = $request->validate([
+        'id_country' => 'required|integer|exists:countries,id_country',
+    ]);
+
+    // Recherche du souvenir par l'utilisateur authentifié et le pays
+    $souvenir = VisitedCountry::where('id_user', $user->id_user)
+        ->where('id_country', $validated['id_country'])
+        ->first();
+
+    if (!$souvenir) {
+        return response()->json([
+            'message' => 'Souvenir not found or unauthorized.'
+        ], 404);
+    }
+
+
+    // Supprimer le souvenir de la base
+    $souvenir->delete();
+
+    return response()->json([
+        'message' => 'Souvenir deleted successfully.'
+    ], 200);
+}
+
 }

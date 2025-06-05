@@ -70,7 +70,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/souvenirs/{id}', [VisitedCountryController::class, 'show']);
     Route::post('/addSouvenir', [VisitedCountryController::class, 'addSouvenir']);
     Route::get('/getImages', [VisitedCountryController::class, 'getImages']);
-    
+    Route::post('/deleteSouvenir', [VisitedCountryController::class, 'deleteSouvenir']);
+
     Route::get('/test', [TestController::class, 'test']);
 
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
